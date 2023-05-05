@@ -125,7 +125,7 @@ Para adicionar as fontes precisa ser no arquivo _document (nesse projeto => src/
 Obs: esse arquivo é literalmente o substituto do index.html que se usa no React puro.
 
 <div align="center">
-  <img src=".github/font-import.png?style=flat" alt="Cover" width="1290px" height="502px">
+  <img src=".github/font-import.png?style=flat" alt="Cover" width="750px" height="300px">
 </div> 
  
 ---
