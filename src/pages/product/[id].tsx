@@ -13,47 +13,25 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { useState } from "react";
 import Head from "next/head";
+import { ISelectedProduct, useCart } from "@/hooks/Cart";
+import { Header } from "@/components/Header";
 
 interface ProductProps {
-  product: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: string;
-    description: string;
-    defaultPriceId: string;
-  };
+  product: ISelectedProduct;
 }
 
 export default function Product({ product }: ProductProps) {
-  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
-    useState<boolean>(false);
+  const { addItemToCart } = useCart();
 
-  const { isFallback } = useRouter();
+  const { isFallback, push } = useRouter();
 
   if (isFallback) {
     return <p>Carregando...</p>;
   }
 
-  async function handleBuyProduct() {
-    try {
-      setIsCreatingCheckoutSession(true);
-
-      // ? por ser uma requisição para a própria API, não precisamos passar a URL completa, somente o caminho.
-      const response = await axios.post("/api/checkout", {
-        priceId: product.defaultPriceId,
-      });
-
-      const { checkoutUrl } = response.data;
-
-      window.location.href = checkoutUrl;
-    } catch (error) {
-      // O certo, seria conectar com uma ferramenta de observabilidade, como o Sentry, DataDog e etc.
-
-      setIsCreatingCheckoutSession(false);
-      console.log(`-handleBuyProduct:ERROR------------`, error);
-      alert("Falha ao redirecionar para o checkout");
-    }
+  function handleAddToCart(product: ISelectedProduct) {
+    addItemToCart(product);
+    push("/");
   }
 
   return (
@@ -61,6 +39,8 @@ export default function Product({ product }: ProductProps) {
       <Head>
         <title>{product.name} | Ignite Shop</title>
       </Head>
+
+      <Header />
 
       <ProductContainer>
         <ImageContainer>
@@ -77,11 +57,13 @@ export default function Product({ product }: ProductProps) {
           <span>{product.price}</span>
           <p>{product.description}</p>
 
-          <button
+          {/*        <button
             disabled={isCreatingCheckoutSession}
-            onClick={handleBuyProduct}
-          >
-            Comprar agora
+            // onClick={handleBuyProduct}
+
+          > */}
+          <button type="button" onClick={() => handleAddToCart(product)}>
+            Colocar na sacola
           </button>
         </ProductDetails>
       </ProductContainer>
@@ -136,6 +118,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
         name: product.name,
         imageUrl: product.images[0],
         description: product.description,
+        unit_amount: price.unit_amount! / 100,
         price: new Intl.NumberFormat("pt-BR", {
           style: "currency",
           currency: "BRL",

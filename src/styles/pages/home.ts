@@ -28,7 +28,7 @@ export const Product = styled("div", {
     bottom: "0.25rem",
     left: "0.25rem",
     right: "0.25rem",
-    padding: "2rem",
+    padding: "1.5rem 2rem",
 
     borderRadius: 6,
 
@@ -47,10 +47,41 @@ export const Product = styled("div", {
       color: "$gray100",
     },
 
-    span: {
+    p: {
       fontSize: "$xl",
       fontWeight: "bold",
       color: "$green300",
+    },
+
+    div: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.5rem",
+    },
+
+    span: {
+      all: "unset",
+
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+
+      width: "56px",
+      height: "56px",
+
+      borderRadius: "6px",
+      backgroundColor: "$gray700",
+
+      background: "$green500",
+      cursor: "pointer",
+
+      svg: {
+        width: "32px",
+        height: "32px",
+
+        color: "$white",
+        fontWeight: "bold",
+      },
     },
   },
 

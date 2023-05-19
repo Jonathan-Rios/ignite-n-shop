@@ -115,6 +115,10 @@ Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE.md) pa
   ➜ npm install stripe
 
   ➜ npm install axios
+  
+  ➜ npm i phosphor-react
+
+  ➜ npm i react-toastify
  
 ```   
 <br />

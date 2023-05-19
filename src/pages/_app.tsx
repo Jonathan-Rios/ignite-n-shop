@@ -3,19 +3,24 @@ import { globalStyles } from "@/styles/global";
 
 globalStyles();
 
-import logoImg from "../assets/logo.svg";
-import { Container, Header } from "@/styles/pages/apps";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import Image from "next/image";
+import { Container } from "@/styles/pages/apps";
+import { Header } from "@/components/Header";
+import { Cart } from "@/components/Cart";
+import { CartProvider } from "@/hooks/Cart";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Container>
-      <Header>
-        <Image src={logoImg} alt="Logo da ignite shop" />
-      </Header>
+    <CartProvider>
+      <Container>
+        <Component {...pageProps} />
 
-      <Component {...pageProps} />
-    </Container>
+        <Cart />
+
+        <ToastContainer />
+      </Container>
+    </CartProvider>
   );
 }

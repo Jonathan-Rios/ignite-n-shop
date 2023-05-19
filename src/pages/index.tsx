@@ -10,6 +10,10 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { stripe } from "@/lib/stripe";
 import Stripe from "stripe";
+import { Handbag } from "phosphor-react";
+import { useCart } from "@/hooks/Cart";
+import { useEffect } from "react";
+import { Header } from "@/components/Header";
 
 interface HomeProps {
   products: {
@@ -21,6 +25,12 @@ interface HomeProps {
 }
 
 export default function Home({ products }: HomeProps) {
+  const { addItemToCart, setProductList } = useCart();
+
+  useEffect(() => {
+    setProductList(products);
+  }, [products]);
+
   const [sliderRef] = useKeenSlider({
     slides: {
       perView: 2.3,
@@ -33,6 +43,8 @@ export default function Home({ products }: HomeProps) {
       <Head>
         <title>Home | Ignite Shop</title>
       </Head>
+
+      <Header />
 
       <HomeContainer ref={sliderRef} className="keen-slider">
         {products.map((product) => (
@@ -52,8 +64,14 @@ export default function Home({ products }: HomeProps) {
               />
 
               <footer>
-                <strong>{product.name}</strong>
-                <span>{product.price}</span>
+                <div>
+                  <strong>{product.name}</strong>
+                  <p>{product.price}</p>
+                </div>
+
+                <span>
+                  <Handbag />
+                </span>
               </footer>
             </Product>
           </Link>
