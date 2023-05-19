@@ -57,8 +57,10 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [TypeScript](https://www.typescriptlang.org/)
 - [Stitches](https://stitches.dev/)
 - [Stripe](https://stripe.com/br)
- 
 
+## 🔗 Link do projeto
+Se quiser ver o projeto no ar, clique [aqui](https://ignite-n-shop.vercel.app/).
+ 
 ## 🚀 Como executar
 
 **Observação**
